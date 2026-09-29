@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.17.19'
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -12,6 +12,11 @@ base {
 
 repositories {
     maven {
+        name = "Fabric"
+        url = "https://maven.fabricmc.net/"
+    }
+
+    maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/releases"
     }
@@ -19,6 +24,10 @@ repositories {
 
 loom {
     splitEnvironmentSourceSets()
+
+    interfaceInjection {
+        enableDependencyInterfaceInjection = true
+    }
 
     mods {
         "pwlastcoords" {
@@ -30,8 +39,11 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    compileOnly "net.fabricmc.fabric-api:fabric-lifecycle-events-v1:4.0.6+a9b9c17647"
 
     compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 }

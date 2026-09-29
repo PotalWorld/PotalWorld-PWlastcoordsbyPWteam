@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "pwlastcoords",
   "version": "${version}",
-  "name": "PWlastcoords",
+  "name": "PWLastCoords",
   "description": "Shows death coordinates and lets you copy them from the death screen.",
   "authors": [
     "PWteam"
@@ -25,8 +25,8 @@
     }
   ],
   "depends": {
-    "fabricloader": ">=0.19.5",
-    "minecraft": "~26.2",
+    "fabricloader": ">=0.19.2",
+    "minecraft": ">=26.1 <26.2",
     "java": ">=25",
     "fabric-api": "*"
   },

@@ -46,14 +46,14 @@ public class ModMenuIntegration implements ModMenuApi {
             addRenderableWidget(
                 Button.builder(
                     Component.literal("Готово"),
-                    button -> minecraft.gui.setScreen(parent)
+                    button -> minecraft.setScreen(parent)
                 ).bounds(width / 2 - 100, height / 2 + 20, 200, 20).build()
             );
         }
 
         @Override
         public void onClose() {
-            minecraft.gui.setScreen(parent);
+            minecraft.setScreen(parent);
         }
     }
 }

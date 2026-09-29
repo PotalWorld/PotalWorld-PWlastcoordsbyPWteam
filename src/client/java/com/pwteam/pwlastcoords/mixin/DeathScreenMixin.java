@@ -6,10 +6,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,24 +20,31 @@ public abstract class DeathScreenMixin extends Screen {
         super(title);
     }
 
-    @Shadow
-    private LocalPlayer player;
-
     private String pwlastcoords$coordinates;
     private boolean pwlastcoords$copied;
     private long pwlastcoords$copyTime;
 
     @Inject(method = "init", at = @At("TAIL"))
     private void pwlastcoords$init(CallbackInfo ci) {
-        if (!PWLastCoordsClient.enabled || player == null) {
+        if (!PWLastCoordsClient.enabled) {
             return;
         }
 
-        int x = player.blockPosition().getX();
-        int y = player.blockPosition().getY();
-        int z = player.blockPosition().getZ();
+        Minecraft minecraft = Minecraft.getInstance();
 
-        pwlastcoords$coordinates = "X: " + x + " Y: " + y + " Z: " + z;
+        if (minecraft.player == null) {
+            return;
+        }
+
+        int x = minecraft.player.getBlockX();
+        int y = minecraft.player.getBlockY();
+        int z = minecraft.player.getBlockZ();
+
+        pwlastcoords$coordinates =
+            "X: " + x +
+            " Y: " + y +
+            " Z: " + z;
+
         pwlastcoords$copied = false;
         pwlastcoords$copyTime = 0L;
     }
@@ -56,7 +61,8 @@ public abstract class DeathScreenMixin extends Screen {
         float partialTick,
         CallbackInfo ci
     ) {
-        if (!PWLastCoordsClient.enabled || pwlastcoords$coordinates == null) {
+        if (!PWLastCoordsClient.enabled
+            || pwlastcoords$coordinates == null) {
             return;
         }
 
