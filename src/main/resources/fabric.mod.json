@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "pwlastcoords",
+  "version": "${version}",
+  "name": "PWlastcoords",
+  "description": "Shows death coordinates and lets you copy them from the death screen.",
+  "authors": [
+    "PWteam"
+  ],
+  "license": "MIT",
+  "icon": "assets/pwlastcoords/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.pwteam.pwlastcoords.PWLastCoordsClient"
+    ],
+    "modmenu": [
+      "com.pwteam.pwlastcoords.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "pwlastcoords.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
